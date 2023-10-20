@@ -1,1 +1,4 @@
 # AWS-HOSTING-A WEB APP
+Aiming to provide a practical online utility, this project seeks to create a web application hosted on AWS that enables users to effortlessly calculate the power of a number. Users will input a base number and an exponent via the application's user interface, and the backend, powered by AWS Lambda, will execute the necessary computation, returning the result promptly. The web app's design will emphasize simplicity and ease of use, making it accessible to a wide audience, while also ensuring data security and availability.
+
+Furthermore, the project may explore additional features such as result history storage, user accounts for personalized experiences, and scalability to accommodate varying user loads. By addressing these objectives, the web application will offer an efficient and user-friendly solution for performing power calculations, benefiting both individuals and businesses that require this mathematical function.
