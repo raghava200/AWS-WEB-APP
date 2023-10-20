@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        form input[type="number"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <form id="converter-form">
+            <label for="temperature">Enter Temperature:</label>
+            <input type="number" id="temperature" name="temperature" required>
+            
+            <label for="unit">Select Target Unit:</label>
+            <select id="unit" name="unit">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+            
+            <button type="button" id="convert-btn">Convert</button>
+        </form>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const convertButton = document.getElementById("convert-btn");
+            const resultDiv = document.getElementById("result");
+
+            convertButton.addEventListener("click", function () {
+                const temperature = parseFloat(document.getElementById("temperature").value);
+                const unit = document.getElementById("unit").value;
+
+                if (!isNaN(temperature)) {
+                    // Send temperature and unit to your API and update the resultDiv
+                    // Replace the API endpoint below with your actual endpoint
+                    fetch('<YOUR_API_ENDPOINT_URL>', {
+                        method: 'POST',
+                        body: JSON.stringify({ temperature, unit }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            resultDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+                        } else {
+                            resultDiv.innerHTML = `<p>Converted Temperature: ${data.result} ${data.unit}</p>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        resultDiv.innerHTML = `<p>An error occurred. Please try again.</p>`;
+                    });
+                } else {
+                    resultDiv.innerHTML = "<p>Please enter a valid temperature.</p>";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
